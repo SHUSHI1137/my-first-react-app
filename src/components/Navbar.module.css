@@ -1,0 +1,14 @@
+.navstyle {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: space-between;
+  background-color: gainsboro;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20px, 16px;
+}
+
+button {
+  border: 0;
+}
