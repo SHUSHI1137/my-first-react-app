@@ -6,9 +6,10 @@
   background-color: gainsboro;
   align-items: center;
   box-sizing: border-box;
-  padding: 20px, 16px;
+  padding: 20px 18px;
 }
 
 button {
   border: 0;
+  background-color: white;
 }
