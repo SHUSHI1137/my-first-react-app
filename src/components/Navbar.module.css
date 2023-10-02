@@ -10,6 +10,8 @@
 }
 
 button {
-  border: 0;
-  background-color: white;
+  border: none;
+  background-color: #aac4ff;
+  height: 28px;
+  border-radius: 10px;
 }

@@ -6,6 +6,6 @@
 }
 
 .App :hover {
-  color: white;
-  background-color: skyblue;
+  color: black;
+  background-color: #eef1ff;
 }
