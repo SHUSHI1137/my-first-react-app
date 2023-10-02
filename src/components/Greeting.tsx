@@ -10,7 +10,7 @@ const Greeting = ({ name, greetingMsg, isLoggedIn }: IGreetingProps) => {
   return (
     <div className={classes.card}>
       <h3>{greetingMsg}</h3>
-      <p>{isLoggedIn ? name : 'Unknown'}</p> //* conditional Rendering on content inside element
+      <p>{isLoggedIn ? name : 'Unknown'}</p>
     </div>
   )
 }
