@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Greeting name="Steve Roger" greetingMsg="Hello!" isLoggedIn={true} />
+      <Greeting name="Steve Roger" isLoggedIn={true} />
       <div className="feed-container">
         {posts.map((post) => {
           return <Post key={post.id} post={post} />
