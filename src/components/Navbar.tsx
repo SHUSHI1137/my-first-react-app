@@ -1,5 +1,3 @@
-// import navClass from './Navbar.module.css'
-
 const Navbar = () => {
   return (
     <nav className="flex justify-between bg-[#3b82f6] box-border w-full h-auto px-8 py-2 item-center text-neutral-50">
