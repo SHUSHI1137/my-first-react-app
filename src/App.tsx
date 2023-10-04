@@ -1,57 +1,29 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import './App.css'
 import Greeting from './components/Greeting'
 import Navbar from './components/Navbar'
 import Post from './components/Post'
-import { CreatePostDTO, PostDTO } from './types/dto'
-import axios from 'axios'
+import usePosts from './hooks/usePosts'
 
 function App() {
-  const [posts, setPosts] = useState<PostDTO[] | null>(null)
+  const { posts, isLoading, isSubmitting, createPost } = usePosts()
   const [newTitle, setNewTitle] = useState<string>('') //* can't move because newTitle and body wait for input on ui
   const [newBody, setNewbody] = useState<string>('') //* can't move because newTitle and body wait for input on ui
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true)
-      try {
-        const res = await axios.get<PostDTO[]>('https://jsonplaceholder.typicode.com/posts')
-
-        setPosts(res.data)
-      } catch (err) {
-        console.error(err)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    const newPostBody: CreatePostDTO = {
-      userId: Math.floor(Math.random() * 1000),
-      title: newTitle,
-      body: newBody,
-    }
-
-    setIsSubmitting(true)
     try {
-      const res = await axios.post<PostDTO>('https://jsonplaceholder.typicode.com/posts', newPostBody, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+      await createPost(newTitle, newBody)
 
-      console.log(res.data)
+      // * Clear form after set posts
+      setNewTitle('')
+      setNewbody('')
     } catch (err) {
       console.log(err)
-    } finally {
-      setIsSubmitting(false)
     }
 
+    // * another way for use axios post method
     // axios
     //   .post('https://jsonplaceholder.typicode.com/posts', {
     //     userId: null,
@@ -67,10 +39,6 @@ function App() {
     // console.log(handleSubmit)
 
     // const axios = require(axios)
-
-    // * Clear form after set posts
-    setNewTitle('')
-    setNewbody('')
   }
 
   if (isLoading) return <h1>Loading.....</h1>
@@ -100,6 +68,7 @@ function App() {
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </form>
+
       <div className="feed-container">
         {posts &&
           posts.map((post) => {
