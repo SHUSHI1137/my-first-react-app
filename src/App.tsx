@@ -3,7 +3,7 @@ import './App.css'
 import Greeting from './components/Greeting'
 import Navbar from './components/Navbar'
 import Post from './components/Post'
-import { PostDTO } from './types/dto'
+import { CreatePostDTO, PostDTO } from './types/dto'
 import axios from 'axios'
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
   const [newTitle, setNewTitle] = useState<string>('')
   const [newBody, setNewbody] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,21 +30,43 @@ function App() {
     fetchData()
   }, [])
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    if (!posts) return
-
-    const currentPosts = [...posts]
-
-    currentPosts.push({
-      id: Math.floor(Math.random() * 1000),
+    const newPostBody: CreatePostDTO = {
       userId: Math.floor(Math.random() * 1000),
       title: newTitle,
       body: newBody,
-    })
+    }
 
-    setPosts(currentPosts)
+    setIsSubmitting(true)
+    try {
+      const res = await axios.post<PostDTO>('https://jsonplaceholder.typicode.com/posts', newPostBody, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+
+      console.log(res.data)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsSubmitting(false)
+    }
+
+    // axios
+    //   .post('https://jsonplaceholder.typicode.com/posts', {
+    //     userId: null,
+    //     title: newTitle,
+    //     body: newBody,
+    //   })
+    //   .then(function (response) {
+    //     console.log(response.data)
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error)
+    //   })
+    // console.log(handleSubmit)
+
+    // const axios = require(axios)
 
     // * Clear form after set posts
     setNewTitle('')
@@ -73,8 +96,8 @@ function App() {
           required
           className="border-solid border-2 border-sky-500"
         />
-        <button type="submit" className="border-solid border-2 rounded-lg border-green-500 ">
-          Submit
+        <button type="submit" disabled={isSubmitting} className="border-solid border-2 rounded-lg border-green-500 ">
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </form>
       <div className="feed-container">
