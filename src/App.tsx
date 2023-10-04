@@ -8,8 +8,8 @@ import axios from 'axios'
 
 function App() {
   const [posts, setPosts] = useState<PostDTO[] | null>(null)
-  const [newTitle, setNewTitle] = useState<string>('')
-  const [newBody, setNewbody] = useState<string>('')
+  const [newTitle, setNewTitle] = useState<string>('') //* can't move because newTitle and body wait for input on ui
+  const [newBody, setNewbody] = useState<string>('') //* can't move because newTitle and body wait for input on ui
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
