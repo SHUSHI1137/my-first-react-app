@@ -1,7 +1,12 @@
 import { NavLink } from 'react-router-dom'
 import classes from './Navbar.module.css'
+import { useAuth } from '../providers/AuthProvider'
 
 const Navbar = () => {
+  const { isLoggedIn } = useAuth()
+
+  console.log('from navbar:', isLoggedIn)
+
   return (
     <nav className="flex justify-between bg-[#3b82f6] box-border w-full h-auto px-8 py-2 item-center text-neutral-50">
       <div className={classes.menu}>
