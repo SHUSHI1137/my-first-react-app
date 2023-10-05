@@ -1,9 +1,11 @@
 import { useState, FormEvent } from 'react'
-import classes from './Home.module.css'
 import usePosts from '../hooks/usePosts'
+import classes from '../pages/CreatePost.module.css'
+import { useNavigate } from 'react-router-dom'
 
 const CreatePost = () => {
   const { isLoading, isSubmitting, createPost } = usePosts()
+  const navigate = useNavigate()
   const [newTitle, setNewTitle] = useState<string>('')
   const [newBody, setNewBody] = useState<string>('')
 
@@ -15,6 +17,8 @@ const CreatePost = () => {
 
       setNewTitle('')
       setNewBody('')
+
+      navigate('/')
     } catch (err) {
       console.error(err)
     }

@@ -4,8 +4,3 @@
   align-items: center;
   gap: 30px;
 }
-
-.App :hover {
-  color: black;
-  background-color: #eef1ff;
-}
