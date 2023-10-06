@@ -3,7 +3,7 @@ import Greeting from '../components/Greeting'
 const Profile = () => {
   return (
     <div>
-      <Greeting name="Ae" isLoggedIn={true} />
+      <Greeting />
     </div>
   )
 }
